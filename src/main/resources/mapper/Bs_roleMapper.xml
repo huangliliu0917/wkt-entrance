@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wkt.entrance.mapper.Bs_roleMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wkt.entrance.entity.Bs_role">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name
+    </sql>
+    <select id="getRoleByClientID" resultType="com.wkt.entrance.entity.Bs_role" parameterType="String">
+        SELECT * FROM bs_role WHERE id IN (
+        SELECT Role_id FROM bs_role_person WHERE bs_role_person.Person_id = #{ClientID}
+        )
+    </select>
+</mapper>

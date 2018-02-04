@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wkt.entrance.mapper.Bs_goodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wkt.entrance.entity.Bs_goods">
+        <id column="GoodsID" property="GoodsID" />
+        <result column="GClientID" property="GClientID" />
+        <result column="GWXPersonNumber" property="GWXPersonNumber" />
+        <result column="GWXUserNumber" property="GWXUserNumber" />
+        <result column="GUserName" property="GUserName" />
+        <result column="GName" property="GName" />
+        <result column="GPrice" property="GPrice" />
+        <result column="GActivePrice" property="GActivePrice" />
+        <result column="GInfo" property="GInfo" />
+        <result column="GTypeID1" property="GTypeID1" />
+        <result column="GTypeID2" property="GTypeID2" />
+        <result column="GTypeID3" property="GTypeID3" />
+        <result column="GIntro" property="GIntro" />
+        <result column="GImage" property="GImage" />
+        <result column="GCount" property="GCount" />
+        <result column="GSail" property="GSail" />
+        <result column="GWeight" property="GWeight" />
+        <result column="GDateTime" property="GDateTime" />
+        <result column="GSize" property="GSize" />
+        <result column="GAddress" property="GAddress" />
+        <result column="State" property="State" />
+        <result column="IsAble" property="IsAble" />
+        <result column="IsShow" property="IsShow" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        GoodsID, GClientID, GWXPersonNumber, GWXUserNumber, GUserName, GName, GPrice, GActivePrice, GInfo, GTypeID1, GTypeID2, GTypeID3, GIntro, GImage, GCount, GSail, GWeight, GDateTime, GSize, GAddress, State, IsAble,IsShow
+    </sql>
+
+    <select id="getBs_person_goodsByClientID" resultType="com.wkt.entrance.entity.Bs_goods" parameterType="String">
+        SELECT * FROM bs_goods WHERE bs_goods.GoodsID IN (
+        SELECT GoodsID FROM bs_person_goods_list
+        WHERE bs_person_goods_list.ClientID = #{ClientID}
+        )
+    </select>
+    <select id="selectGoodsList" resultType="com.wkt.entrance.entity.Bs_goods" parameterType="String">
+        SELECT * FROM  bs_goods WHERE
+        GAddress = #{addr} and (GTypeID1 =#{typeID} or GTypeID2 =#{typeID}or GTypeID3 =#{typeID})
+        and State = 0 and IsAble = 0
+    </select>
+    <select id="selectGoodsListByClientID" resultType="com.wkt.entrance.entity.Bs_goods" parameterType="String">
+        SELECT * FROM  bs_goods WHERE
+        GClientID = #{ClientID} and State = 0
+    </select>
+    <select id="selectWaitGoodsList" resultType="com.wkt.entrance.entity.Bs_goods">
+        SELECT * FROM  bs_goods WHERE IsAble = 2
+    </select>
+</mapper>

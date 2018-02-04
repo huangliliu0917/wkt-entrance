@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wkt.entrance.mapper.Sys_permissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wkt.entrance.entity.Sys_permission">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="url" property="url" />
+        <result column="pid" property="pid" />
+        <result column="description" property="description" />
+        <result column="method" property="method" />
+        <result column="type" property="type" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, url, pid, description, method, type
+    </sql>
+    <select id="findAllByPersonId" resultType="com.wkt.entrance.entity.Sys_permission">
+        SELECT * FROM sys_permission bp LEFT JOIN  sys_permission_role bpr ON  bp.id = bpr.permissino_id
+        LEFT JOIN sys_role r ON r.id = bpr.role_id
+        LEFT JOIN sys_role_user rp on rp.Role_id=r.id
+        LEFT JOIN sys_user p on p.id = rp.User_id
+        where p.id = #{id}
+    </select>
+    <select id="findAll" resultType="com.wkt.entrance.entity.Sys_permission">
+        SELECT * FROM  sys_permission;
+    </select>
+
+</mapper>
