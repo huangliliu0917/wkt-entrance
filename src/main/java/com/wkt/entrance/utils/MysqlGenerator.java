@@ -62,7 +62,7 @@ class MysqlGenerator {
      *  table名字
      */
     private static String[] table={
-            "shipping_address"
+            "bs_person"
     };
     /**
      *  table前缀
@@ -111,7 +111,7 @@ class MysqlGenerator {
                         .setDriverName("com.mysql.jdbc.Driver")
                         .setUsername("zmj2")
                         .setPassword("011101")
-                        .setUrl("jdbc:mysql://centos.zmjzmj.cn:3306/func?useUnicode=true&characterEncoding=UTF8&useSSL=false")
+                        .setUrl("jdbc:mysql://www.58wxy.com:3306/wkt?useUnicode=true&characterEncoding=UTF8&useSSL=false")
         ).setStrategy(
                 // 策略配置
                 new StrategyConfig()

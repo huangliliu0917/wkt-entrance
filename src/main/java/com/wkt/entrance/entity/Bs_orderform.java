@@ -1,10 +1,11 @@
 package com.wkt.entrance.entity;
 
+import java.io.Serializable;
+
+import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -12,7 +13,7 @@ import java.util.Date;
  * </p>
  *
  * @author zmj
- * @since 2018-01-29
+ * @since 2018-02-07
  */
 @TableName("bs_orderform")
 public class Bs_orderform extends Model<Bs_orderform> {

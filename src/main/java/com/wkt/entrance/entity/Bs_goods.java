@@ -1,10 +1,11 @@
 package com.wkt.entrance.entity;
 
+import java.io.Serializable;
+
+import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -12,7 +13,7 @@ import java.util.Date;
  * </p>
  *
  * @author zmj
- * @since 2018-02-02
+ * @since 2018-02-07
  */
 @TableName("bs_goods")
 public class Bs_goods extends Model<Bs_goods> {
@@ -100,18 +101,18 @@ public class Bs_goods extends Model<Bs_goods> {
      */
 	private String GAddress;
     /**
-     * 状态(1有效，0无效)
+     * 状态(0有效，1无效)
      */
 	private Integer State;
     /**
      * 是否通过审核（0通过，1未通过，2待审核）
      */
 	private Integer IsAble;
-
-	/**
-	 * 是否显示（0显示，1不显示）
-	 */
+    /**
+     * 是否显示(0显示，1不显示)
+     */
 	private Integer IsShow;
+
 
 	public String getGoodsID() {
 		return GoodsID;
@@ -293,8 +294,8 @@ public class Bs_goods extends Model<Bs_goods> {
 		return IsShow;
 	}
 
-	public void setIsShow(Integer isShow) {
-		IsShow = isShow;
+	public void setIsShow(Integer IsShow) {
+		this.IsShow = IsShow;
 	}
 
 	@Override

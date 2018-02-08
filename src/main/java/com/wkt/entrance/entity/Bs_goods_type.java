@@ -1,8 +1,9 @@
 package com.wkt.entrance.entity;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zmj
- * @since 2018-01-29
+ * @since 2018-02-07
  */
 @TableName("bs_goods_type")
 public class Bs_goods_type extends Model<Bs_goods_type> {

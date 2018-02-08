@@ -20,16 +20,23 @@
         <result column="Address" property="Address" />
         <result column="Photo" property="Photo" />
         <result column="WXOpenID" property="WXOpenID" />
+        <result column="isTry" property="isTry" />
+        <result column="activationTime" property="activationTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ClientID, NickName, UserName, RealName, Sex, PersonPassword, Email, Phone, CertID, PswQuestion, PswResult, RegTime, MemberPoints, GradeID, Address, Photo ,WXOpenID
+        ClientID, NickName, UserName, RealName, Sex, PersonPassword, Email, Phone, CertID, PswQuestion, PswResult, RegTime, MemberPoints, GradeID, Address, Photo ,WXOpenID, isTry, activationTime
     </sql>
     <update id="uploadPhoto" parameterType="String">
         UPDATE bs_person
           SET Photo = #{photo}
         where UserName = #{UserName}
+    </update>
+    <update id="updateIsTry" parameterType="java.util.Map" >
+        UPDATE bs_person
+        SET isTry = #{isTry,jdbcType=INTEGER} , activationTime = #{activationTime}
+        where ClientID = #{clientID}
     </update>
 
     <select id="getAll" resultType="com.wkt.entrance.entity.Bs_person" >

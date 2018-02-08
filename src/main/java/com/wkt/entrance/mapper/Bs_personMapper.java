@@ -5,6 +5,7 @@ import com.wkt.entrance.entity.Bs_person;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,5 +20,5 @@ public interface Bs_personMapper extends BaseMapper<Bs_person> {
     Bs_person findByName(@Param("name") String name);
     Bs_person findByWXOpenID(@Param("WXOpenID") String WXOpenID);
     Boolean uploadPhoto(@Param("photo") String photo, @Param("UserName") String UserName);
-
+    Boolean updateIsTry(Map<String,Object> map);
 }

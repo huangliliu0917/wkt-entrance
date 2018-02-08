@@ -25,6 +25,10 @@ public enum SysCode implements CodeInterface {
     IS_ABLE_YES(0,"已审核"),
     IS_ABLE_NO(1,"未通过"),
     IS_ABLE_WAIT(2,"待审核"),
+
+    //Try
+    IS_TRY_YES(0,"是体验用户"),
+    IS_TRY_NO(1,"不是体验用户"),
     ;
 
     /**

@@ -22,12 +22,18 @@ public interface Bs_personService extends IService<Bs_person> {
      * @return
      */
     public boolean addPersonAsRoleName(String ClientID, String roleName);
+    public boolean updatePersonAsRoleName(String ClientID, String roleName);
     /**
      * 添加用户账户
      * @param ClientID
      * @return
      */
     public boolean addAccPerson(String ClientID);
-
-
+    /**
+     * 接单用户接货接口
+     * @param clientID  用户ID
+     * @param isTry 是否为7日体验用户
+     * @return
+     */
+    public boolean activationPerson(String clientID ,boolean isTry);
 }

@@ -1,10 +1,11 @@
 package com.wkt.entrance.entity;
 
+import java.io.Serializable;
+
+import java.util.Date;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * <p>
@@ -12,7 +13,7 @@ import java.util.Date;
  * </p>
  *
  * @author zmj
- * @since 2018-01-29
+ * @since 2018-02-07
  */
 @TableName("reflect_apply")
 public class Reflect_apply extends Model<Reflect_apply> {
@@ -40,7 +41,7 @@ public class Reflect_apply extends Model<Reflect_apply> {
      */
 	private Integer State;
     /**
-     * 审核状态 审核通过(0)  未通过（1） 待审核（2）
+     * 审核状态 审核通过(0) 未通过（1） 待审核（2）
      */
 	private Integer IsAble;
     /**

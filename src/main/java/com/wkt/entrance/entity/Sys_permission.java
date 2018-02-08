@@ -1,10 +1,11 @@
 package com.wkt.entrance.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import java.io.Serializable;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zmj
- * @since 2018-01-29
+ * @since 2018-02-07
  */
 @TableName("sys_permission")
 public class Sys_permission extends Model<Sys_permission> {

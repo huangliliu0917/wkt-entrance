@@ -6,15 +6,19 @@ import com.wkt.entrance.common.exception.CommonException;
 import com.wkt.entrance.entity.*;
 import com.wkt.entrance.mapper.*;
 import com.wkt.entrance.service.Bs_personService;
+import com.wkt.entrance.utils.DateUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
 import com.wkt.entrance.utils.sysenum.RoleCode;
+import com.wkt.entrance.utils.sysenum.SysCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -123,6 +127,25 @@ public class Bs_personServiceImpl extends CommonManagerImpl<Bs_personMapper, Bs_
     }
 
     /**
+     * 新增人员加入角色，入参为人员ID和角色名
+     * @param roleName
+     * @return
+     */
+    @Override
+    public boolean updatePersonAsRoleName(String ClientID, String roleName) {
+        EntityWrapper entityWrapper = new EntityWrapper();
+        entityWrapper.setEntity(new Bs_role());
+        List<Bs_role> selectList = bs_roleMapper.selectList(entityWrapper.where("name={0}", roleName));
+        Bs_role_person bs_role_person = new Bs_role_person();
+        bs_role_person.setPerson_id(ClientID);
+        bs_role_person.setRole_id(selectList.get(0).getId());
+        EntityWrapper entityWrapper2 = new EntityWrapper();
+        entityWrapper.setEntity(new Bs_role_person());
+        bs_role_personMapper.update(bs_role_person,entityWrapper2.where("Person_id = {0}",ClientID));
+        return true;
+    }
+
+    /**
      * 添加用户账户
      * @param ClientID
      * @return
@@ -136,7 +159,28 @@ public class Bs_personServiceImpl extends CommonManagerImpl<Bs_personMapper, Bs_
         return true;
     }
 
-
+    /**
+     * 接单用户接货接口
+     * @param clientID  用户ID
+     * @param isTry 是否为7日体验用户
+     * @return
+     */
+    @Override
+    public boolean activationPerson(String clientID, boolean isTry) {
+        Integer intIsTry;
+        if(isTry){
+            intIsTry= SysCode.IS_TRY_YES.getCode();
+        }else {
+            intIsTry= SysCode.IS_TRY_NO.getCode();
+        }
+        Map<String,Object> map = new HashMap();
+        map.put("clientID",clientID);
+        map.put("isTry",intIsTry);
+        map.put("activationTime", DateUtil.getNowTimestamp());
+        bs_personMapper.updateIsTry(map);
+        this.updatePersonAsRoleName(clientID,RoleCode.ROLE_MERCHANTS.getCode());
+        return true;
+    }
 
 
 }

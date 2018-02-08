@@ -7,12 +7,14 @@ import com.wkt.entrance.common.exception.CommonException;
 import com.wkt.entrance.entity.Bs_goods;
 import com.wkt.entrance.mapper.Bs_goodsMapper;
 import com.wkt.entrance.service.Bs_goodsService;
+import com.wkt.entrance.service.Bs_personService;
 import com.wkt.entrance.utils.RestfulResultUtils;
 import com.wkt.entrance.utils.ZmjUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
 import com.wkt.entrance.utils.sysenum.SysCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -48,11 +50,14 @@ public class ManagerController extends CommonController {
 
     @Autowired
     Bs_goodsService bs_goodsService;
+
+    @Autowired
+    Bs_personService bs_personService;
     /**
      * 获取待审核商品列表
      * @return
      */
-    @PostMapping("/getWaitGoodsList")
+    @RequestMapping("/getWaitGoodsList")
     public RestfulResult getWaitGoodsList(int pages, int amount){
         Page page = new Page(pages,amount);
         List<Bs_goods> bs_goods = bs_goodsMapper.selectWaitGoodsList(page);
@@ -87,4 +92,6 @@ public class ManagerController extends CommonController {
         bs_goodsService.checkGoods(goodsID, SysCode.IS_ABLE_NO);
         return RestfulResultUtils.success("成功！");
     }
+
+
 }
