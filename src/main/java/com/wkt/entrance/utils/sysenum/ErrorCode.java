@@ -12,7 +12,7 @@ public enum ErrorCode {
     KNOWS_ERROR(500, "已知异常"),
     UNKNOWNS_ERROR(501, "未知异常"),
     HTTPREQUESTMETHODNOTSUPPORTED(405,"请求方法不被允许"),
-
+    DONOT_ALLOWED(405,"权限不足"),
     ;
     /**
      * 说明

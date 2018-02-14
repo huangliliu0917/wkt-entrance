@@ -1,5 +1,7 @@
 package com.wkt.entrance.security;
 
+import com.wkt.entrance.common.exception.CommonException;
+import com.wkt.entrance.utils.sysenum.ErrorCode;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -34,13 +36,14 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
         for(Iterator<ConfigAttribute> iter = configAttributes.iterator(); iter.hasNext(); ) {
             c = iter.next();
             needRole = c.getAttribute();
-            for(GrantedAuthority ga : authentication.getAuthorities()) {//authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
+            for(GrantedAuthority ga : authentication.getAuthorities()) {
+                //authentication 为在注释1 中循环添加到 GrantedAuthority 对象中的权限信息集合
                 if(needRole.trim().equals(ga.getAuthority())) {
                     return;
                 }
             }
         }
-        throw new AccessDeniedException("no right");
+        throw new CommonException(ErrorCode.DONOT_ALLOWED,"权限不足！");
     }
 
     @Override

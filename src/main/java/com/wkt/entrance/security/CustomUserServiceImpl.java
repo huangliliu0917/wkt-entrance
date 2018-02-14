@@ -49,7 +49,7 @@ public class CustomUserServiceImpl implements UserDetailsService {
             //遍历权限列表
             for (Sys_permission permission : permissions) {
                 if (permission != null && permission.getName()!=null) {
-                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getName());
+                    GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(permission.getUrl());
                     //1：此处将权限信息添加到 GrantedAuthority 对象中，在后面进行全权限验证时会使用GrantedAuthority对象。
                     grantedAuthorities.add(grantedAuthority);
                 }

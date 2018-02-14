@@ -47,6 +47,7 @@ import java.io.IOException;
                  response.setHeader("Access-Control-Max-Age", "3600");
                  response.setHeader("Access-Control-Allow-Headers",
                              "Content-Type, x-requested-with, X-Custom-Header, Authorization");
+
                  chain.doFilter(req, res);
              }
 

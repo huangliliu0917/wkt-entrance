@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -59,8 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/loginPage","/login2","/login","/home","/loginError","/register","/authImage","/checkImageCode","/authImageBase64","/sendSmsCode","/verifyCode","/showSlideshowInfo","/noRoot/**","/css/**","/img/**","/js/**",matcher).permitAll()
+                //Cors预请求不做拦截
+                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/loginPage","/login2","/login","/home","/loginError","/register","/logout","/checkImageCode","/authImageBase64","/sendSmsCode","/verifyCode","/showSlideshowInfo","/noRoot/**","/css/**","/img/**","/js/**",matcher).permitAll()
                 .anyRequest().authenticated() //任何请求,登录后才可以访问
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 .sessionManagement()
                 .invalidSessionUrl("/login")

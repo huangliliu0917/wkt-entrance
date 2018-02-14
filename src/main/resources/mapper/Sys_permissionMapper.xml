@@ -27,5 +27,12 @@
     <select id="findAll" resultType="com.wkt.entrance.entity.Sys_permission">
         SELECT * FROM  sys_permission;
     </select>
+    <select id="getMenuByPersonId" resultType="com.wkt.entrance.entity.Sys_permission">
+        SELECT * FROM sys_permission bp LEFT JOIN  sys_permission_role bpr ON  bp.id = bpr.permissino_id
+        LEFT JOIN sys_role r ON r.id = bpr.role_id
+        LEFT JOIN sys_role_user rp on rp.Role_id=r.id
+        LEFT JOIN sys_user p on p.id = rp.User_id
+        where p.id = #{id} and bp.type=1
+    </select>
 
 </mapper>

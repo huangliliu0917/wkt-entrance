@@ -1,5 +1,6 @@
 package com.wkt.entrance.security;
 
+import com.wkt.entrance.utils.RestfulResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
@@ -9,6 +10,8 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Service;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
@@ -30,6 +33,20 @@ public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor imp
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
         FilterInvocation fi = new FilterInvocation(request, response, chain);
+        //预请求处理
+        if(request instanceof HttpServletRequest) {
+            if("OPTIONS".equalsIgnoreCase(((HttpServletRequest) request).getMethod())){
+                System.out.println("OPTIONS");
+                ((HttpServletResponse) response).setHeader("Content-type", "text/html;charset=UTF-8");
+                ((HttpServletResponse) response).setHeader("Access-Control-Allow-Origin",((HttpServletRequest) request).getHeader("Origin"));
+                ((HttpServletResponse) response).setHeader("Access-Control-Allow-Methods","*");
+                ((HttpServletResponse) response).setHeader("Access-Control-Allow-Credentials", "true");
+                ((HttpServletResponse) response).setHeader("Access-Control-Allow-Headers", "access-control-allow-credentials,x-requested-with");
+                response.getWriter().print(RestfulResultUtils.success().toString());
+                response.getWriter().flush();
+                return;
+            }
+        }
         invoke(fi);
     }
 

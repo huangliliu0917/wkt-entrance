@@ -3,6 +3,7 @@ package com.wkt.entrance.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.wkt.entrance.entity.Bs_permission;
 import com.wkt.entrance.entity.Sys_permission;
+import com.wkt.entrance.entity.Sys_role;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,4 +31,6 @@ public interface Sys_permissionMapper extends BaseMapper<Sys_permission> {
      */
     @Cacheable(key = "'AllPermissions'")
     List<Sys_permission> findAll();
+
+    List<Sys_permission> getMenuByPersonId(@Param("id") Integer id);
 }
