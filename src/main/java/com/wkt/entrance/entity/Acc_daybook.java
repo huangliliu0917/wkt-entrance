@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zmj
- * @since 2018-02-07
+ * @since 2018-02-14
  */
 @TableName("acc_daybook")
 public class Acc_daybook extends Model<Acc_daybook> {
@@ -36,6 +36,14 @@ public class Acc_daybook extends Model<Acc_daybook> {
      * 交易币数量
      */
 	private Integer Amt;
+    /**
+     * 支付前金额
+     */
+	private Integer BeforeBalance;
+    /**
+     * 支付后金额
+     */
+	private Integer AfterBalance;
     /**
      * 支付宝订单号
      */
@@ -96,6 +104,22 @@ public class Acc_daybook extends Model<Acc_daybook> {
 
 	public void setAmt(Integer Amt) {
 		this.Amt = Amt;
+	}
+
+	public Integer getBeforeBalance() {
+		return BeforeBalance;
+	}
+
+	public void setBeforeBalance(Integer BeforeBalance) {
+		this.BeforeBalance = BeforeBalance;
+	}
+
+	public Integer getAfterBalance() {
+		return AfterBalance;
+	}
+
+	public void setAfterBalance(Integer AfterBalance) {
+		this.AfterBalance = AfterBalance;
 	}
 
 	public String getAli_order_number() {
@@ -166,6 +190,8 @@ public class Acc_daybook extends Model<Acc_daybook> {
 			", tr_code=" + tr_code +
 			", Note=" + Note +
 			", Amt=" + Amt +
+			", BeforeBalance=" + BeforeBalance +
+			", AfterBalance=" + AfterBalance +
 			", Ali_order_number=" + Ali_order_number +
 			", Ali_account=" + Ali_account +
 			", Ali_name=" + Ali_name +

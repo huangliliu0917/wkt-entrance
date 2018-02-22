@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zmj
- * @since 2018-02-07
+ * @since 2018-02-19
  */
 @TableName("bs_goods")
 public class Bs_goods extends Model<Bs_goods> {
@@ -112,6 +112,10 @@ public class Bs_goods extends Model<Bs_goods> {
      * 是否显示(0显示，1不显示)
      */
 	private Integer IsShow;
+    /**
+     * 申请时间
+     */
+	private Date GAddedTime;
 
 
 	public String getGoodsID() {
@@ -298,6 +302,14 @@ public class Bs_goods extends Model<Bs_goods> {
 		this.IsShow = IsShow;
 	}
 
+	public Date getGAddedTime() {
+		return GAddedTime;
+	}
+
+	public void setGAddedTime(Date GAddedTime) {
+		this.GAddedTime = GAddedTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.GoodsID;
@@ -329,6 +341,7 @@ public class Bs_goods extends Model<Bs_goods> {
 			", State=" + State +
 			", IsAble=" + IsAble +
 			", IsShow=" + IsShow +
+			", GAddedTime=" + GAddedTime +
 			"}";
 	}
 }

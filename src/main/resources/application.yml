@@ -9,8 +9,6 @@ server:
 spring:
     application:
       name: wkt-entrance
-    thymeleaf:
-      prefix: classpath:/templates/
     #包含
     profiles:
       active: dev,all

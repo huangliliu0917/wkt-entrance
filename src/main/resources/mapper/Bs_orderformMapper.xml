@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wkt.entrance.mapper.Bs_orderformMapper">
+
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.wkt.entrance.entity.Bs_orderform">
         <id column="SubID" property="SubID" />
         <result column="ClientID" property="ClientID" />
+        <result column="ConsumerUserName" property="ConsumerUserName" />
         <result column="ProductUserName" property="ProductUserName" />
         <result column="GoodsID" property="GoodsID" />
+        <result column="GName" property="GName" />
+        <result column="GTypeID" property="GTypeID" />
         <result column="RAddress" property="RAddress" />
         <result column="SpDate" property="SpDate" />
         <result column="SpCount" property="SpCount" />
@@ -17,12 +21,21 @@
         <result column="Payment" property="Payment" />
         <result column="SendType" property="SendType" />
         <result column="SendPrice" property="SendPrice" />
+        <result column="ItemTitle" property="ItemTitle" />
+        <result column="ItemPrice" property="ItemPrice" />
+        <result column="ItemActivePrice" property="ItemActivePrice" />
+        <result column="ItemDescription" property="ItemDescription" />
+        <result column="ItemPic" property="ItemPic" />
         <result column="State" property="State" />
+        <result column="IsAble" property="IsAble" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        SubID, ClientID, ProductUserName, GoodsID, RAddress, SpDate, SpCount, GPrice, ReceiptID, SpPrice, SendDate, Payment, SendType, SendPrice, State
+        SubID, ClientID, ConsumerUserName, ProductUserName, GoodsID, GName, GTypeID, RAddress, SpDate, SpCount, GPrice, ReceiptID, SpPrice, SendDate, Payment, SendType, SendPrice, ItemTitle, ItemPrice, ItemActivePrice, ItemDescription, ItemPic, State, IsAble
     </sql>
+    <select id="selectOrderFormList" resultType="com.wkt.entrance.entity.Bs_orderform">
+        SELECT * FROM bs_orderform ORDER BY SpDate DESC
+    </select>
 
 </mapper>

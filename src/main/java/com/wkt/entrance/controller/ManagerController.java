@@ -5,14 +5,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.wkt.entrance.common.CommonController;
 import com.wkt.entrance.common.RestfulResult;
 import com.wkt.entrance.common.exception.CommonException;
-import com.wkt.entrance.entity.Bs_goods;
-import com.wkt.entrance.entity.PageResult;
-import com.wkt.entrance.entity.Sys_permission;
-import com.wkt.entrance.entity.Sys_role;
+import com.wkt.entrance.entity.*;
 import com.wkt.entrance.mapper.Bs_goodsMapper;
+import com.wkt.entrance.mapper.Bs_orderformMapper;
 import com.wkt.entrance.mapper.Sys_permissionMapper;
 import com.wkt.entrance.mapper.Sys_roleMapper;
 import com.wkt.entrance.service.Bs_goodsService;
+import com.wkt.entrance.service.Bs_orderformService;
 import com.wkt.entrance.service.Bs_personService;
 import com.wkt.entrance.utils.RestfulResultUtils;
 import com.wkt.entrance.utils.ZmjUtil;
@@ -67,6 +66,12 @@ public class ManagerController extends CommonController {
 
     @Autowired
     Sys_roleMapper sys_roleMapper;
+
+    @Autowired
+    Bs_orderformMapper bs_orderformMapper;
+
+    @Autowired
+    Bs_orderformService bs_orderformService;
     /**
      * 获取待审核商品列表
      * @return
@@ -79,6 +84,7 @@ public class ManagerController extends CommonController {
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.setEntity(new Bs_goods());
         entityWrapper.where("IsAble = {0}",SysCode.IS_ABLE_WAIT.getCode());
+        entityWrapper.orderBy("IsAble",false);
         Integer selectCount = bs_goodsMapper.selectCount(entityWrapper);
         PageResult pageResult = new PageResult(selectCount,page);
         return RestfulResultUtils.success(pageResult);
@@ -141,4 +147,69 @@ public class ManagerController extends CommonController {
     public RestfulResult showMenu() throws Exception {
         return RestfulResultUtils.success(sys_permissionMapper.getMenuByPersonId(this.getThisUser().getId()));
     }
+
+    /**
+     * 获取待审核订单列表
+     * @return
+     */
+    @RequestMapping("/getOrderFormList")
+    public RestfulResult getOrderFormList(int pages, int size){
+        Page page = new Page(pages,size);
+        EntityWrapper entityWrapper = new EntityWrapper();
+        entityWrapper.setEntity(new Bs_orderform());
+        List<Bs_orderform> bs_orderforms = bs_orderformMapper.selectOrderFormList(page);
+        page.setRecords(bs_orderforms);
+        Integer selectCount = bs_orderformMapper.selectCount(entityWrapper);
+        PageResult pageResult = new PageResult(selectCount,page);
+        return RestfulResultUtils.success(pageResult);
+    }
+
+    /**
+     * 充值审核通过
+     * @return
+     */
+    @PostMapping("/orderFormAudit")
+    public RestfulResult orderFormAudit(String SubID){
+        if(ZmjUtil.isNullOrEmpty(SubID)){
+            throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
+        }
+        bs_orderformService.orderFormAudit(SubID,true);
+        return RestfulResultUtils.success("审核成功！");
+    }
+
+    @PostMapping("/batchOrderFormAudit")
+    public RestfulResult batchOrderFormAudit(String[] SubID){
+        if(ZmjUtil.isNullOrEmpty(SubID)){
+            throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
+        }
+        for (String s:SubID) {
+            bs_orderformService.orderFormAudit(s,true);
+        }
+        return RestfulResultUtils.success("审核成功！");
+    }
+
+    /**
+     * 充值审核通过
+     * @return
+     */
+    @PostMapping("/orderFormNotAudit")
+    public RestfulResult orderFormNotAudit(String SubID){
+        if(ZmjUtil.isNullOrEmpty(SubID)){
+            throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
+        }
+        bs_orderformService.orderFormAudit(SubID,false);
+        return RestfulResultUtils.success("审核不通过成功！");
+    }
+
+    @PostMapping("/batchOrderFormNotAudit")
+    public RestfulResult batchOrderFormNotAudit(String[] SubID){
+        if(ZmjUtil.isNullOrEmpty(SubID)){
+            throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
+        }
+        for (String s:SubID) {
+            bs_orderformService.orderFormAudit(s,false);
+        }
+        return RestfulResultUtils.success("审核成功！");
+    }
+
 }

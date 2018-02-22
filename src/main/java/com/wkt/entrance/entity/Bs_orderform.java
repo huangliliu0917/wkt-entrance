@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zmj
- * @since 2018-02-07
+ * @since 2018-02-19
  */
 @TableName("bs_orderform")
 public class Bs_orderform extends Model<Bs_orderform> {
@@ -29,15 +29,27 @@ public class Bs_orderform extends Model<Bs_orderform> {
      */
 	private String ClientID;
     /**
+     * 客户用户名
+     */
+	private String ConsumerUserName;
+    /**
      * 提供者账号
      */
 	private String ProductUserName;
     /**
-     * 商品号
+     * 微信群ID
      */
 	private String GoodsID;
     /**
-     * 送货地址
+     * 微信群名称
+     */
+	private String GName;
+    /**
+     * 微信群类别
+     */
+	private String GTypeID;
+    /**
+     * 地区
      */
 	private String RAddress;
     /**
@@ -77,9 +89,35 @@ public class Bs_orderform extends Model<Bs_orderform> {
      */
 	private Double SendPrice;
     /**
+     * 项目标题
+     */
+	private String ItemTitle;
+    /**
+     * 项目原价
+     */
+	private Double ItemPrice;
+    /**
+     * 项目活动价
+     */
+	private Double ItemActivePrice;
+    /**
+     * 项目描述
+     */
+	private String ItemDescription;
+    /**
+     * 项目图片
+     */
+	private String ItemPic;
+    /**
      * 订单状态
+(0有效 1无效 2商家未确认)
      */
 	private Integer State;
+    /**
+     * 审核状态
+(0通过 1未通过 2待审核)
+     */
+	private Integer IsAble;
 
 
 	public String getSubID() {
@@ -98,6 +136,14 @@ public class Bs_orderform extends Model<Bs_orderform> {
 		this.ClientID = ClientID;
 	}
 
+	public String getConsumerUserName() {
+		return ConsumerUserName;
+	}
+
+	public void setConsumerUserName(String ConsumerUserName) {
+		this.ConsumerUserName = ConsumerUserName;
+	}
+
 	public String getProductUserName() {
 		return ProductUserName;
 	}
@@ -112,6 +158,22 @@ public class Bs_orderform extends Model<Bs_orderform> {
 
 	public void setGoodsID(String GoodsID) {
 		this.GoodsID = GoodsID;
+	}
+
+	public String getGName() {
+		return GName;
+	}
+
+	public void setGName(String GName) {
+		this.GName = GName;
+	}
+
+	public String getGTypeID() {
+		return GTypeID;
+	}
+
+	public void setGTypeID(String GTypeID) {
+		this.GTypeID = GTypeID;
 	}
 
 	public String getRAddress() {
@@ -194,12 +256,60 @@ public class Bs_orderform extends Model<Bs_orderform> {
 		this.SendPrice = SendPrice;
 	}
 
+	public String getItemTitle() {
+		return ItemTitle;
+	}
+
+	public void setItemTitle(String ItemTitle) {
+		this.ItemTitle = ItemTitle;
+	}
+
+	public Double getItemPrice() {
+		return ItemPrice;
+	}
+
+	public void setItemPrice(Double ItemPrice) {
+		this.ItemPrice = ItemPrice;
+	}
+
+	public Double getItemActivePrice() {
+		return ItemActivePrice;
+	}
+
+	public void setItemActivePrice(Double ItemActivePrice) {
+		this.ItemActivePrice = ItemActivePrice;
+	}
+
+	public String getItemDescription() {
+		return ItemDescription;
+	}
+
+	public void setItemDescription(String ItemDescription) {
+		this.ItemDescription = ItemDescription;
+	}
+
+	public String getItemPic() {
+		return ItemPic;
+	}
+
+	public void setItemPic(String ItemPic) {
+		this.ItemPic = ItemPic;
+	}
+
 	public Integer getState() {
 		return State;
 	}
 
 	public void setState(Integer State) {
 		this.State = State;
+	}
+
+	public Integer getIsAble() {
+		return IsAble;
+	}
+
+	public void setIsAble(Integer IsAble) {
+		this.IsAble = IsAble;
 	}
 
 	@Override
@@ -212,8 +322,11 @@ public class Bs_orderform extends Model<Bs_orderform> {
 		return "Bs_orderform{" +
 			", SubID=" + SubID +
 			", ClientID=" + ClientID +
+			", ConsumerUserName=" + ConsumerUserName +
 			", ProductUserName=" + ProductUserName +
 			", GoodsID=" + GoodsID +
+			", GName=" + GName +
+			", GTypeID=" + GTypeID +
 			", RAddress=" + RAddress +
 			", SpDate=" + SpDate +
 			", SpCount=" + SpCount +
@@ -224,7 +337,13 @@ public class Bs_orderform extends Model<Bs_orderform> {
 			", Payment=" + Payment +
 			", SendType=" + SendType +
 			", SendPrice=" + SendPrice +
+			", ItemTitle=" + ItemTitle +
+			", ItemPrice=" + ItemPrice +
+			", ItemActivePrice=" + ItemActivePrice +
+			", ItemDescription=" + ItemDescription +
+			", ItemPic=" + ItemPic +
 			", State=" + State +
+			", IsAble=" + IsAble +
 			"}";
 	}
 }

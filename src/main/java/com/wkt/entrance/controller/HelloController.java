@@ -17,14 +17,19 @@ import com.wkt.entrance.common.aspect.RestfulAnnotation;
 import com.wkt.entrance.common.exception.CommonException;
 import com.wkt.entrance.utils.VerifyCodeUtils;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.Objects;
 
 @Controller
 public class HelloController extends CommonController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
+    @RequestMapping(value = "/" , method = RequestMethod.GET)
+    public String loginPage2() throws IOException {
+        return "login";
+    }
 
     @RequestMapping(value = "/loginPage" , method = RequestMethod.GET)
     public String loginPage(){
@@ -60,19 +65,15 @@ public class HelloController extends CommonController {
         throw new CommonException(ErrorCode.VERIFY_ERROR,"登录失败，账号密码错误");
     }
 
-    @RequestMapping(value = "/loginSuccess" , method = RequestMethod.GET,produces="application/json;charset=UTF-8")
-    @ResponseBody
-    @RestfulAnnotation
-    public RestfulResult loginSuccess(){
-        return RestfulResultUtils.success("登录成功");
+    @RequestMapping(value = "/loginSuccess" , method = RequestMethod.GET)
+    public ModelAndView loginSuccess() throws IOException {
+        return new ModelAndView("redirect:http://www.58wxy.com/wkt-entrance/static/index.html");
     }
 
-    @RequestMapping(value = "/home" , method = RequestMethod.GET,produces="application/json;charset=UTF-8")
-    @ResponseBody
-    @RestfulAnnotation
-    public RestfulResult home(){
+    @RequestMapping(value = "/home" , method = RequestMethod.GET)
+    public String  home(){
         System.out.println(ZmjUtil.isAjaxRequest(request));
-        return RestfulResultUtils.success("测试home");
+        return "index";
     }
 
     /**

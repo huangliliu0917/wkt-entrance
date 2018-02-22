@@ -27,11 +27,12 @@
         <result column="State" property="State" />
         <result column="IsAble" property="IsAble" />
         <result column="IsShow" property="IsShow" />
+        <result column="GAddedTime" property="GAddedTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        GoodsID, GClientID, GWXPersonNumber, GWXUserNumber, GUserName, GName, GPrice, GActivePrice, GInfo, GTypeID1, GTypeID2, GTypeID3, GIntro, GImage, GCount, GSail, GWeight, GDateTime, GSize, GAddress, State, IsAble,IsShow
+        GoodsID, GClientID, GWXPersonNumber, GWXUserNumber, GUserName, GName, GPrice, GActivePrice, GInfo, GTypeID1, GTypeID2, GTypeID3, GIntro, GImage, GCount, GSail, GWeight, GDateTime, GSize, GAddress, State, IsAble,IsShow, GAddedTime
     </sql>
 
     <select id="getBs_person_goodsByClientID" resultType="com.wkt.entrance.entity.Bs_goods" parameterType="String">
