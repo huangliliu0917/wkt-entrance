@@ -5,6 +5,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ZmjUtil {
@@ -135,8 +136,17 @@ public class ZmjUtil {
 
     //置空结束-------------------------------
 
-    public static String getNum19(){
+    public static String getUUID19(){
         return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    public static  String getNum19(){
+        String numStr = "" ;
+        String trandStr = String.valueOf((Math.random() * 9 + 1) * 1000000);
+        String dataStr = new SimpleDateFormat("yyyyMMddHHMMSS").format(new Date());
+        numStr = trandStr.toString().substring(0, 4);
+        numStr = dataStr+numStr;
+        return numStr ;
     }
 
     public static boolean isAjaxRequest(HttpServletRequest request) {

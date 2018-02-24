@@ -28,7 +28,10 @@ import com.wkt.entrance.utils.CodeInterface;
  */
 public enum  RoleCode implements CodeInterface {
     ROLE_USER("ROLE_USER","普通权限用户"),
-    ROLE_MERCHANTS("ROLE_MERCHANTS","商户权限用户")
+    ROLE_MERCHANTS("ROLE_MERCHANTS","商户权限用户"),
+    ROLE_SUPERUSER("ROLE_SUPERUSER","超级管理员"),
+    ROLE_ADMIN_USER("ROLE_ADMIN_USER","普通管理员"),
+    ROLE_PARTNER("ROLE_PARTNER","合伙人"),
     ;
 
     /**

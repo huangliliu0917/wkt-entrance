@@ -15,4 +15,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface Sys_userMapper extends BaseMapper<Sys_user> {
     Sys_user findByName(@Param("name") String name);
+    Integer selectMaxId();
 }

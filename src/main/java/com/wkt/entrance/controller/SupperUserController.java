@@ -9,13 +9,12 @@ import com.wkt.entrance.entity.*;
 import com.wkt.entrance.mapper.Bs_goodsMapper;
 import com.wkt.entrance.mapper.Recharge_applyMapper;
 import com.wkt.entrance.mapper.Reflect_applyMapper;
-import com.wkt.entrance.service.Bs_goodsService;
-import com.wkt.entrance.service.Bs_personService;
-import com.wkt.entrance.service.Recharge_applyService;
-import com.wkt.entrance.service.Reflect_applyService;
+import com.wkt.entrance.service.*;
+import com.wkt.entrance.utils.MD5Util;
 import com.wkt.entrance.utils.RestfulResultUtils;
 import com.wkt.entrance.utils.ZmjUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
+import com.wkt.entrance.utils.sysenum.RoleCode;
 import com.wkt.entrance.utils.sysenum.SysCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +57,9 @@ public class SupperUserController extends CommonController {
 
     @Autowired
     Reflect_applyService reflect_applyService;
+
+    @Autowired
+    Sys_userService sys_userService;
     /**
      * 接单用户激活接口
      * @param username  用户名
@@ -90,7 +92,7 @@ public class SupperUserController extends CommonController {
         Page page = new Page(pages,size);
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.setEntity(new Recharge_apply());
-        entityWrapper.orderBy("IsAble",false);
+        entityWrapper.orderBy("IsAble",false).orderBy("Apply_date",false);
         Page selectPage = recharge_applyService.selectPage(page, entityWrapper);
         Integer count = recharge_applyService.selectCount(entityWrapper);
         PageResult pageResult = new PageResult(count,selectPage);
@@ -132,7 +134,7 @@ public class SupperUserController extends CommonController {
         Page page = new Page(pages,size);
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.setEntity(new Reflect_apply());
-        entityWrapper.orderBy("IsAble",false);
+        entityWrapper.orderBy("IsAble",false).orderBy("Apply_date",false);;
         Page selectPage = reflect_applyService.selectPage(page, entityWrapper);
         Integer count = reflect_applyService.selectCount(entityWrapper);
         PageResult pageResult = new PageResult(count,selectPage);
@@ -166,5 +168,45 @@ public class SupperUserController extends CommonController {
         }
         reflect_applyService.reflectApplyAudit(action_no,null,false);
         return RestfulResultUtils.success("审核不通过成功！");
+    }
+
+    /**
+     * 添加合伙人
+     * @param sys_user
+     * @return
+     */
+    @PostMapping("/addPartner")
+    public RestfulResult addPartner(Sys_user sys_user ){
+        if(ZmjUtil.isNullOrEmpty(sys_user.getUsername())){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"用户名不能为空！");
+        }
+        if(ZmjUtil.isNullOrEmpty(sys_user.getPassword())){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"密码不能为空！");
+        }else {
+            sys_user.setPassword(MD5Util.encode(sys_user.getPassword()));
+        }
+        //添加合伙人
+        sys_userService.addSys_user(sys_user, RoleCode.ROLE_PARTNER);
+        return RestfulResultUtils.success("添加成功！");
+    }
+
+    /**
+     * 添加管理员
+     * @param sys_user
+     * @return
+     */
+    @PostMapping("/addAdminUser")
+    public RestfulResult addAdminUser(Sys_user sys_user ){
+        if(ZmjUtil.isNullOrEmpty(sys_user.getUsername())){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"用户名不能为空！");
+        }
+        if(ZmjUtil.isNullOrEmpty(sys_user.getPassword())){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"密码不能为空！");
+        }else {
+            sys_user.setPassword(MD5Util.encode(sys_user.getPassword()));
+        }
+        //添加管理员
+        sys_userService.addSys_user(sys_user, RoleCode.ROLE_ADMIN_USER);
+        return RestfulResultUtils.success("添加成功！");
     }
 }

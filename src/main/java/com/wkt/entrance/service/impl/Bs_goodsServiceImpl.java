@@ -102,6 +102,9 @@ public class Bs_goodsServiceImpl extends CommonManagerImpl<Bs_goodsMapper,Bs_goo
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.setEntity(new Bs_goods());
         entityWrapper.where("GoodsID = {0}",goodsID);
+        if(selectCount(entityWrapper)==0){
+            throw new CommonException(ErrorCode.NOT_FIND_ERROR,"未找到微信群ID为："+goodsID+"的微信群!");
+        }
         this.update(bs_goods,entityWrapper);
     }
 

@@ -1,5 +1,6 @@
 package com.wkt.entrance.controller;
 
+import com.baomidou.mybatisplus.enums.SqlLike;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.wkt.entrance.common.CommonController;
@@ -96,11 +97,15 @@ public class ManagerController extends CommonController {
      * @return
      */
     @PostMapping("/checkGoodsThrough")
-    public RestfulResult checkGoodsThrough(String goodsID){
-        if (ZmjUtil.isNullOrEmpty(goodsID)){
+    public RestfulResult checkGoodsThrough(String[] goodsID){
+        if(ZmjUtil.isNullOrEmpty(goodsID)){
             throw new CommonException(ErrorCode.NULL_ERROR,"微信群ID不能为空！");
         }
-        bs_goodsService.checkGoods(goodsID, SysCode.IS_ABLE_YES);
+        for (String s:goodsID) {
+            System.out.println(s);
+            bs_goodsService.checkGoods(s, SysCode.IS_ABLE_YES);
+        }
+
         return RestfulResultUtils.success("成功！");
     }
 
@@ -110,11 +115,14 @@ public class ManagerController extends CommonController {
      * @return
      */
     @PostMapping("/checkGoodsNotThrough")
-    public RestfulResult checkGoodsNotThrough(String goodsID){
+    public RestfulResult checkGoodsNotThrough(String[] goodsID){
         if (ZmjUtil.isNullOrEmpty(goodsID)){
             throw new CommonException(ErrorCode.NULL_ERROR,"微信群ID不能为空！");
         }
-        bs_goodsService.checkGoods(goodsID, SysCode.IS_ABLE_NO);
+        for (String s:goodsID) {
+            System.out.println(s);
+            bs_goodsService.checkGoods(s, SysCode.IS_ABLE_NO);
+        }
         return RestfulResultUtils.success("成功！");
     }
 
@@ -153,11 +161,15 @@ public class ManagerController extends CommonController {
      * @return
      */
     @RequestMapping("/getOrderFormList")
-    public RestfulResult getOrderFormList(int pages, int size){
+    public RestfulResult getOrderFormList(int pages, int size,String goodType){
         Page page = new Page(pages,size);
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.setEntity(new Bs_orderform());
-        List<Bs_orderform> bs_orderforms = bs_orderformMapper.selectOrderFormList(page);
+        entityWrapper.like("GTypeID",goodType, SqlLike.DEFAULT);
+        if(ZmjUtil.isNullOrEmpty(goodType)){
+            goodType="";
+        }
+        List<Bs_orderform> bs_orderforms = bs_orderformMapper.selectOrderFormList(page,goodType);
         page.setRecords(bs_orderforms);
         Integer selectCount = bs_orderformMapper.selectCount(entityWrapper);
         PageResult pageResult = new PageResult(selectCount,page);
@@ -177,12 +189,18 @@ public class ManagerController extends CommonController {
         return RestfulResultUtils.success("审核成功！");
     }
 
+    /**
+     * 批量审核通过
+     * @param SubID
+     * @return
+     */
     @PostMapping("/batchOrderFormAudit")
     public RestfulResult batchOrderFormAudit(String[] SubID){
         if(ZmjUtil.isNullOrEmpty(SubID)){
             throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
         }
         for (String s:SubID) {
+            System.out.println(s);
             bs_orderformService.orderFormAudit(s,true);
         }
         return RestfulResultUtils.success("审核成功！");
@@ -201,12 +219,18 @@ public class ManagerController extends CommonController {
         return RestfulResultUtils.success("审核不通过成功！");
     }
 
+    /**
+     * 批量审核不通过
+     * @param SubID
+     * @return
+     */
     @PostMapping("/batchOrderFormNotAudit")
     public RestfulResult batchOrderFormNotAudit(String[] SubID){
         if(ZmjUtil.isNullOrEmpty(SubID)){
             throw new CommonException(ErrorCode.NULL_ERROR,"SubID不能为空！");
         }
         for (String s:SubID) {
+            System.out.println(s);
             bs_orderformService.orderFormAudit(s,false);
         }
         return RestfulResultUtils.success("审核成功！");

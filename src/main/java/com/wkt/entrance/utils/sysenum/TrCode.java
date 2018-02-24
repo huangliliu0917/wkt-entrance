@@ -29,7 +29,9 @@ import com.wkt.entrance.utils.CodeInterface;
 public enum TrCode implements CodeInterface {
 
     RACHARGE("10001","充值"),
-    REFLECT("10002","提现")
+    REFLECT("10002","提现"),
+    WITHHOLDING("10003","代扣"),
+    REFUND("10004","退款"),
     ;
 
     /**

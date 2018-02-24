@@ -3,8 +3,11 @@ package com.wkt.entrance.common;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wkt.entrance.common.aspect.RestfulAnnotation;
 import com.wkt.entrance.common.exception.CommonException;
+import com.wkt.entrance.entity.Bs_goods;
+import com.wkt.entrance.entity.Bs_goods_type;
 import com.wkt.entrance.entity.Sys_user;
 import com.wkt.entrance.mapper.Sys_userMapper;
+import com.wkt.entrance.service.Bs_goods_typeService;
 import com.wkt.entrance.utils.RestfulResultUtils;
 import com.wkt.entrance.utils.ZmjUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 /**
 code is far away from bug with the animal protecting
  *  ┏┓　　　┏┓
@@ -44,6 +49,9 @@ code is far away from bug with the animal protecting
  */
 @Controller
 public class CommonController {
+
+    @Autowired
+    Bs_goods_typeService bs_goods_typeService ;
 
     @Autowired
     Sys_userMapper sys_userMapper;
@@ -109,5 +117,6 @@ public class CommonController {
             throw new CommonException(ErrorCode.NOT_FIND_ERROR,"无法获取当前用户对象，请检查！");
         }
     }
+
 
 }
