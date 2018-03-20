@@ -177,7 +177,7 @@ public class ManagerController extends CommonController {
     }
 
     /**
-     * 充值审核通过
+     * 订单审核通过
      * @return
      */
     @PostMapping("/orderFormAudit")
@@ -190,7 +190,7 @@ public class ManagerController extends CommonController {
     }
 
     /**
-     * 批量审核通过
+     * 批量订单审核通过
      * @param SubID
      * @return
      */
@@ -207,7 +207,7 @@ public class ManagerController extends CommonController {
     }
 
     /**
-     * 充值审核通过
+     * 订单审核不通过
      * @return
      */
     @PostMapping("/orderFormNotAudit")
@@ -220,7 +220,7 @@ public class ManagerController extends CommonController {
     }
 
     /**
-     * 批量审核不通过
+     * 批量订单审核不通过
      * @param SubID
      * @return
      */

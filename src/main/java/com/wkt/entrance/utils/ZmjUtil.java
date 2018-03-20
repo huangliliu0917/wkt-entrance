@@ -136,6 +136,24 @@ public class ZmjUtil {
 
     //置空结束-------------------------------
 
+    /**
+     * 生成流水号
+     * @return
+     */
+    public static String getOrderIdByUUId() {
+        //最大支持1-9个集群机器部署
+        int machineId = 1;
+        int hashCodeV = UUID.randomUUID().toString().hashCode();
+        //有可能是负数
+        if(hashCodeV < 0) {
+            hashCodeV = - hashCodeV;
+        }
+        // 0 代表前面补充0
+        // 4 代表长度为4
+        // d 代表参数为正数型
+        return machineId + String.format("%015d", hashCodeV);
+    }
+
     public static String getUUID19(){
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
@@ -157,6 +175,6 @@ public class ZmjUtil {
     public static void main(String[] args) {
         String s = "";
         System.out.println(ZmjUtil.isNullOrEmpty(s));
-        System.out.println(getNum19());
+        System.out.println(getUUID19());
     }
 }

@@ -33,11 +33,7 @@
           SET Photo = #{photo}
         where UserName = #{UserName}
     </update>
-    <update id="updateIsTry" parameterType="java.util.Map" >
-        UPDATE bs_person
-        SET isTry = #{isTry,jdbcType=INTEGER} , activationTime = #{activationTime}
-        where ClientID = #{clientID}
-    </update>
+
 
     <select id="getAll" resultType="com.wkt.entrance.entity.Bs_person" >
         SELECT * FROM bs_person
@@ -49,5 +45,31 @@
     <select id="findByWXOpenID" resultType="com.wkt.entrance.entity.Bs_person"  parameterType="String" >
         SELECT * FROM bs_person WHERE bs_person.WXOpenID = #{WXOpenID}
     </select>
+
+    <update id="updateIsTry" parameterType="java.util.Map" >
+        UPDATE bs_person
+        SET isTry = #{isTry,jdbcType=INTEGER} , activationTime = #{activationTime}
+        where ClientID = #{clientID}
+    </update>
+
+    <select id="selectCountOfPerson" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT COUNT(*) FROM
+        bs_person bp,bs_role br,bs_role_person brp
+        WHERE
+        bp.ClientID = brp.Person_id
+        and
+        br.id = brp.Role_id
+        <if test="days!=null">
+            and
+            TO_DAYS(NOW()) - TO_DAYS(bp.RegTime)=#{days,jdbcType=INTEGER}
+        </if>
+        <if test="month!=null">
+            and
+            DATE_FORMAT(RegTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) ,'%Y%m' )
+        </if>
+        AND
+        br.`name` = #{role}
+    </select>
+
 </mapper>
 

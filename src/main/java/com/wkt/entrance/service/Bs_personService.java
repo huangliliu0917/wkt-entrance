@@ -36,4 +36,11 @@ public interface Bs_personService extends IService<Bs_person> {
      * @return
      */
     public boolean activationPerson(String clientID ,boolean isTry);
+
+    /**
+     * 根据ID获取person对象
+     * @param ClientID
+     * @return
+     */
+    public Bs_person findByClientID(String ClientID) ;
 }

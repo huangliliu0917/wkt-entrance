@@ -34,5 +34,10 @@
     <sql id="Base_Column_List">
         SubID, ClientID, ConsumerUserName, ProductUserName, GoodsID, GName, GTypeID, RAddress, SpDate, SpCount, GPrice, ReceiptID, SpPrice, SendDate, Payment, SendType, SendPrice, ItemTitle, ItemPrice, ItemActivePrice, ItemDescription, ItemPic, State, IsAble
     </sql>
+    <select id="selectOrderFormList" resultType="com.wkt.entrance.entity.Bs_orderform">
+        SELECT * FROM bs_orderform WHERE GTypeID LIKE '%${goodType}%'
+        ORDER BY SpDate DESC
+    </select>
+
 
 </mapper>

@@ -21,4 +21,5 @@ public interface Bs_personMapper extends BaseMapper<Bs_person> {
     Bs_person findByWXOpenID(@Param("WXOpenID") String WXOpenID);
     Boolean uploadPhoto(@Param("photo") String photo, @Param("UserName") String UserName);
     Boolean updateIsTry(Map<String,Object> map);
+    Integer selectCountOfPerson(Map<String,Object> map);
 }

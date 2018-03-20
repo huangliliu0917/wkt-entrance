@@ -6,11 +6,13 @@ import com.wkt.entrance.common.exception.CommonException;
 import com.wkt.entrance.entity.Bs_goods;
 import com.wkt.entrance.entity.Bs_goods_type;
 import com.wkt.entrance.entity.Sys_user;
+import com.wkt.entrance.mapper.Bs_personMapper;
 import com.wkt.entrance.mapper.Sys_userMapper;
 import com.wkt.entrance.service.Bs_goods_typeService;
 import com.wkt.entrance.utils.RestfulResultUtils;
 import com.wkt.entrance.utils.ZmjUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
+import com.wkt.entrance.utils.sysenum.RoleCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,6 +58,9 @@ public class CommonController {
 
     @Autowired
     Sys_userMapper sys_userMapper;
+
+    @Autowired
+    Bs_personMapper bs_personMapper;
 
     protected String message="";
 
@@ -118,5 +124,20 @@ public class CommonController {
         }
     }
 
-
+    /**
+     * 根据注册天数和角色统计用户数
+     * @param days
+     * @param roleCode
+     * @return
+     */
+    public Integer selectCountOfPerson(Integer days, RoleCode roleCode,boolean isMounth){
+        HashMap<String,Object> selectParm = new HashMap();
+        selectParm.put("role", roleCode.getCode());
+        if(isMounth){
+            selectParm.put("month",true);
+        }else {
+            selectParm.put("days",days);
+        }
+        return bs_personMapper.selectCountOfPerson(selectParm);
+    }
 }

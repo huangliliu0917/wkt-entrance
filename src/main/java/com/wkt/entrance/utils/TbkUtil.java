@@ -41,7 +41,7 @@ public class TbkUtil {
     private static final String URL = "https://eco.taobao.com/router/rest";
     private static final String APPKEY = "24576611";
     private static final String SECRET = "20171995c8a67b8fecc47058c616704b";
-    private static final String PID = "mm_46667186_33352377_118692248";
+    private static final String PID = "mm_46667186_35066962_277674842";
 
     /**
      * 生成淘口令
@@ -103,7 +103,7 @@ public class TbkUtil {
         WirelessShareTpwdCreateRequest.GenPwdIsvParamDto obj1 = new WirelessShareTpwdCreateRequest.GenPwdIsvParamDto();
         obj1.setExt("{\"xx\":\"xx\"}");
         obj1.setLogo("https://img.alicdn.com//tfscom//i3//1981819532//TB1siNISFXXXXaoXVXXXXXXXXXX_!!0-item_pic.jpg");
-        obj1.setUrl("https://item.taobao.com//item.htm?id=551625849471");
+        obj1.setUrl("https://detail.tmall.com//item.htm?id=557517798482");
         obj1.setText("超值活动，惊喜活动多多");
         obj1.setUserId(131267237L);
         req.setTpwdParam(obj1);
@@ -115,7 +115,7 @@ public class TbkUtil {
 
     public static void main(String[] args) throws ApiException {
         //测试生成淘口令
-        tpwdCreate("131267237","长度大于5个字符","https://item.taobao.com//item.htm?id=551625849471","https://img.alicdn.com//tfscom//i3//1981819532//TB1siNISFXXXXaoXVXXXXXXXXXX_!!0-item_pic.jpg","{}");
+        tpwdCreate("277674842","长度大于5个字符","https://detail.tmall.com//item.htm?id=557517798482","http:\\/\\/img.alicdn.com\\/tfscom\\/i4\\/1954848087\\/TB1yCqYd7fb_uJkHFrdXXX2IVXa_!!0-item_pic.jpg","{}");
 
         //测试商品列表获取
         Long adzoneId = Long.valueOf(PID.split("_")[3]);

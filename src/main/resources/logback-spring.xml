@@ -230,7 +230,7 @@
     <!--</contextListener>-->
 
     <springProfile name="prod">
-        <property name="LOG_PATH" value="/home/tomcat/apache-tomcat-8.5.8/logs"/>
+        <!--<property name="LOG_PATH" value="/home/tomcat/apache-tomcat-8.5.8/logs"/>-->
         <root level="info">
             <appender-ref ref="FILEERROR"/>
             <appender-ref ref="FILEWARN"/>
@@ -242,7 +242,7 @@
     </springProfile>
 
     <springProfile name="dev">
-        <property name="LOG_PATH" value=".logs"/>
+        <!--<property name="LOG_PATH" value=".logs"/>-->
         <root level="info">
             <appender-ref ref="FILEERROR"/>
             <appender-ref ref="FILEWARN"/>

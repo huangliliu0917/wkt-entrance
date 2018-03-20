@@ -7,6 +7,7 @@ import com.wkt.entrance.entity.*;
 import com.wkt.entrance.mapper.*;
 import com.wkt.entrance.service.Bs_personService;
 import com.wkt.entrance.utils.DateUtil;
+import com.wkt.entrance.utils.ZmjUtil;
 import com.wkt.entrance.utils.sysenum.ErrorCode;
 import com.wkt.entrance.utils.sysenum.RoleCode;
 import com.wkt.entrance.utils.sysenum.SysCode;
@@ -182,5 +183,20 @@ public class Bs_personServiceImpl extends CommonManagerImpl<Bs_personMapper, Bs_
         return true;
     }
 
-
+    /**
+     * 根据ID获取person对象
+     * @param ClientID
+     * @return
+     */
+    @Override
+    public Bs_person findByClientID(String ClientID) {
+        EntityWrapper entityWrapper = new EntityWrapper();
+        entityWrapper.setEntity(new Bs_person());
+        entityWrapper.where("ClientID = {0}",ClientID);
+        List<Bs_person> selectList = bs_personMapper.selectList(entityWrapper);
+        if(ZmjUtil.isNullOrEmpty(selectList)){
+            throw new CommonException(ErrorCode.NOT_FIND_USER_ERROR);
+        }
+        return selectList.get(0);
+    }
 }

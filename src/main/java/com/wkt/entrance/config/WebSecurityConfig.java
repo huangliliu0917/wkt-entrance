@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //Cors预请求不做拦截
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .antMatchers("/","/loginPage","/login2","/login","/home","/loginError","/register","/logout","/checkImageCode","/authImageBase64","/sendSmsCode","/verifyCode","/showSlideshowInfo","/noRoot/**","/css/**","/img/**","/js/**",matcher).permitAll()
+                .antMatchers("/","/loginPage","/login2","/login","/home","/loginError","/register","/logout","authImage","/checkImageCode","/authImageBase64","/sendSmsCode","/verifyCode","/showSlideshowInfo","/noRoot/**","/css/**","/img/**","/js/**",matcher).permitAll()
                 .anyRequest().authenticated() //任何请求,登录后才可以访问
                 .and()
                 .headers().frameOptions().disable()

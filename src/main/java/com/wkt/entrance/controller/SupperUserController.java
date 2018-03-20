@@ -60,6 +60,9 @@ public class SupperUserController extends CommonController {
 
     @Autowired
     Sys_userService sys_userService;
+
+    @Autowired
+    Bs_goods_typeService bs_goods_typeService;
     /**
      * 接单用户激活接口
      * @param username  用户名
@@ -207,6 +210,23 @@ public class SupperUserController extends CommonController {
         }
         //添加管理员
         sys_userService.addSys_user(sys_user, RoleCode.ROLE_ADMIN_USER);
+        return RestfulResultUtils.success("添加成功！");
+    }
+
+    /**
+     * 添加微信群类别
+     * @param bs_goods_type
+     * @return
+     */
+    @PostMapping("/addGoodsType")
+    public RestfulResult addGoodsType(Bs_goods_type bs_goods_type){
+        if(ZmjUtil.isNullOrEmpty(bs_goods_type)){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"微信群类型不能为空!");
+        }
+        if(ZmjUtil.isNullOrEmpty(bs_goods_type.getTypeName())){
+            throw new CommonException(ErrorCode.VERIFY_ERROR,"微信群类型名字不能为空!");
+        }
+        bs_goods_typeService.insert(bs_goods_type);
         return RestfulResultUtils.success("添加成功！");
     }
 }

@@ -9,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.wkt.entrance.common.CommonController;
 import com.wkt.entrance.common.aspect.RestfulAnnotation;
 import com.wkt.entrance.common.exception.CommonException;
@@ -81,10 +79,9 @@ public class HelloController extends CommonController {
      *
      * @throws Exception
      */
-    @RequestMapping("/authImageBase64")
+    @GetMapping("/authImageBase64")
     @ResponseBody
-    @RestfulAnnotation
-    public String authImageBase64() throws Exception {
+    public RestfulResult authImageBase64() throws Exception {
         JSONObject jsonObject = new JSONObject();
         //利用图片工具生成图片
         //是生成的验证码
@@ -95,7 +92,7 @@ public class HelloController extends CommonController {
         response.setContentType("image/png");
         int w = 100, h = 30;
         jsonObject.put("src", "data:image/jpg;base64," + VerifyCodeUtils.outputImage(w, h, verifyCode));
-        return jsonObject.toString();
+        return RestfulResultUtils.success(jsonObject);
     }
 
     /**
@@ -117,11 +114,10 @@ public class HelloController extends CommonController {
     }
 
     /**
-     * 获取验证码
+     * 验证验证码
      */
-    @RequestMapping(value = "/checkImageCode", method = RequestMethod.GET, produces = "application/javascript;charset=UTF-8")
+    @PostMapping(value = "/checkImageCode", produces = "application/javascript;charset=UTF-8")
     @ResponseBody
-    @RestfulAnnotation
     public String checkImageCode(String imageCode) throws Exception {
         String imageCodeT = (String) session.getAttribute("imageCode");
         if (Objects.equals(imageCodeT, "") || Objects.equals(imageCode, imageCodeT)) {

@@ -42,6 +42,7 @@ public class IsoStrManagerImpl implements IsoStrManager{
      */
     @Override
     public String deal(String params, Socket socket) {
+
         return RestfulResultUtils.success(params).toString();
     }
 }
